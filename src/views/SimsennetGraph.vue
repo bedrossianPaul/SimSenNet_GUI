@@ -54,14 +54,15 @@ export default {
   methods: {
     get_node() {
       let request = new XMLHttpRequest();
-      request.open("GET", this.url, true);
-      request.onload = function () {
-        var jsonResult = JSON.parse(request.responseText);
-        this.data["nodes"] = reactive(jsonResult["nodes"])
-        this.data["edges"] = reactive(jsonResult["edges"])
-        this.data["layouts"] = reactive(jsonResult["layouts"])
-      };
+      request.open("GET", this.url, false);
+      /*request.onload = function () {
+        console.log(this.data)
+      };*/
       request.send();
+      let jsonResult = JSON.parse(request.responseText);
+      this.data["nodes"] = reactive(jsonResult["nodes"])
+      this.data["edges"] = reactive(jsonResult["edges"])
+      this.data["layouts"] = reactive(jsonResult["layouts"])
       /*this.data["nodes"] = {
         node1 : { name: "Node 1"},
         node2 : { name: "Node 2"},
