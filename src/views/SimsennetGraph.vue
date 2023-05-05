@@ -38,6 +38,7 @@ export default {
       config: configs,
       zoomLevel: zoomLevel,
       timer: '',
+      url: 'http://ssngwtd.loria.fr/network-map.php',
       d3ForceEnabled: computed({
         get: () => configs.view.layoutHandler instanceof ForceLayout,
         set: (value) => {
@@ -53,7 +54,7 @@ export default {
   methods: {
     get_node() {
       let request = new XMLHttpRequest();
-      request.open("GET", this.graph, true);
+      request.open("GET", this.url, true);
       request.onload = function () {
         var jsonResult = JSON.parse(request.responseText);
         this.data["nodes"] = reactive(jsonResult["nodes"])
