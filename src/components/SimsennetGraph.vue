@@ -18,7 +18,7 @@ const configs = reactive(
 )
 
 export default {
-  name: 'SensennetGraph',
+  name: 'SimsennetGraph',
   components: {
     VNetworkGraph
   },
@@ -26,6 +26,26 @@ export default {
     graph: String
   },
   mounted () {
+    this.data["nodes"] = {
+        node1 : { name: "Node 1"},
+        node2 : { name: "Node 2"},
+        node3 : { name: "Node 3"},
+        node4 : { name: "Node 4"}
+      }
+      this.data["edges"] = {
+        edge1: { source: "node1", target: "node2"},
+        edge2: { source: "node2", target: "node3" },
+        edge3: { source: "node3", target: "node4" }
+      }
+      this.data["layouts"] = {
+        nodes: {
+          node1: {
+            x: 0,
+            y: 0,
+            fixed: true,
+          },
+        }
+      }
     this.get_node();
     this.timer = setInterval(this.get_node, 30000);
   },
@@ -53,17 +73,18 @@ export default {
   },
   methods: {
     get_node() {
-      let request = new XMLHttpRequest();
+      /*let request = new XMLHttpRequest();
       request.open("GET", this.url, false);
-      /*request.onload = function () {
+      request.onload = function () {
         console.log(this.data)
-      };*/
+      };
       request.send();
       let jsonResult = JSON.parse(request.responseText);
       this.data["nodes"] = reactive(jsonResult["nodes"])
       this.data["edges"] = reactive(jsonResult["edges"])
       this.data["layouts"] = reactive(jsonResult["layouts"])
-      /*this.data["nodes"] = {
+      */
+      this.data["nodes"] = {
         node1 : { name: "Node 1"},
         node2 : { name: "Node 2"},
         node3 : { name: "Node 3"},
@@ -74,32 +95,24 @@ export default {
         edge2: { source: "node2", target: "node3" },
         edge3: { source: "node3", target: "node4" }
       }
-      this.data["layouts"] = {
-        nodes: {
-          node1: {
-            x: 0,
-            y: 0,
-            fixed: true, // Unaffected by force
-          },
-        }
-      }*/
+      this.data["layouts"]["nodes"]["node1"]["fixed"] = true;
     }
   }
 }
 </script>
 
 <template>
+  
   <div class="demo-control-panel">
-    <label for="scaleObj">Scaling Objects:</label><input type="checkbox" v-model="config.view.scalingObjects" name="scaleObj">
+    <label for="scaleObj">Scaling Objects:</label><input type="checkbox" v-model="config.view.scalingObjects" name="scaleObj"> |
     <label for="forceEnabled">Automatic Node Positioning:</label><input type="checkbox" v-model="d3ForceEnabled" name="forceEnabled">
   </div>
- <v-network-graph class="graph" :nodes="data['nodes']" :edges="data['edges']" :layouts="data['layouts']" v-model:zoom-level="zoomLevel" :configs="config"></v-network-graph>
+  <v-network-graph class="graph" :nodes="data['nodes']" :edges="data['edges']" :layouts="data['layouts']" v-model:zoom-level="zoomLevel" :configs="config"></v-network-graph>
 </template>
 
 <style scoped>
 .graph {
-  border: 1px solid #000;
   width: 100%;
-  height:100%;
+  height: 90%;
 }
 </style>

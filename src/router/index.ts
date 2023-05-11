@@ -1,21 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SensennetGraph from "@/views/SimsennetGraph.vue";
+import SimsennetGraph from "../views/Main.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: SensennetGraph
+    name: 'main',
+    component: SimsennetGraph
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+ 
 ]
 
 const router = createRouter({
