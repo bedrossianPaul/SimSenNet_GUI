@@ -1,4 +1,4 @@
-# sensennet_gui
+# SimSenNet_gui
 
 ## Project setup
 ```
